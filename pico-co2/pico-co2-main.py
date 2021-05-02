@@ -2,6 +2,8 @@
 # errno, ffilib, os, scd30, signal, ssd1306, stat
 # Rename this file to "main.py" and save to the Pico so that it runs automatically on power on.
 
+# original code from https://www.tindie.com/products/rubikcuber/pico-co2-sensor-bare-pcb-raspberry-pi/
+
 import time
 import math
 from machine import Pin, I2C
@@ -23,7 +25,7 @@ def led_set_rgb(r, g, b):
     led_rgb_r.value(r)
     led_rgb_g.value(g)
     led_rgb_b.value(b)
-    
+
 # Set the RGB LED to white during initialisation
 led_set_rgb(1,1,1)
 

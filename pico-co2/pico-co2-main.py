@@ -91,8 +91,9 @@ while True:
                 led_set_rgb(0,0,1)
             else:
                 led_set_rgb(1,0,0)
-        # Wait 2 seconds until the next reading is available
-        time.sleep(2)
+        # Poll once every 3 seconds as per
+        # https://www.rainer-gerhards.de/2021/01/sensirion-scd-30-different-co2-readings-depending-on-measurement-interval/
+        time.sleep(3)
     else:
         # Wait 0.2 seconds and then try again
         time.sleep(0.2)

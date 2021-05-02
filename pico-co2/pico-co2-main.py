@@ -78,6 +78,7 @@ while True:
             oled.fill(0);
             oled.text("CO2: " + ('%.2f' % m[0]) + " ppm", 0, 0)
             oled.text("Temp: " + ('%.2f' % m[1]) + " C", 0, 10)
+            oled.text("Hum:  " + ('%.2f' % m[2]) + " %", 0, 20)
             runtime = (time.time() - start)
             oled.text("uptime: " + secondsToString(runtime), 0, 50)
             oled.show()

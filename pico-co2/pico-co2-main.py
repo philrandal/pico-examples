@@ -95,7 +95,7 @@ while True:
             else:
                 led_set_rgb(1,0,0)
         # Poll once every 3 seconds
-         time.sleep(3)
+        time.sleep(3)
     else:
         # Wait 0.2 seconds and then try again
         time.sleep(0.2)

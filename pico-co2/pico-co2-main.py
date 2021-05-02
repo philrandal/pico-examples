@@ -41,7 +41,9 @@ i2c=I2C(0, sda=Pin(12), scl=Pin(13), freq=400000)
 
 # Initialise the SCD30 sensor
 scd30 = SCD30(i2c, 0x61)
-scd30.set_measurement_interval(2)
+# set measurement interval to 3 seconds as per
+# https://www.rainer-gerhards.de/2021/01/sensirion-scd-30-different-co2-readings-depending-on-measurement-interval/
+scd30.set_measurement_interval(3)
 scd30.start_continous_measurement()
 
 # Wait for 1.5 seconds to ensure the OLED is ready
@@ -92,9 +94,8 @@ while True:
                 led_set_rgb(0,0,1)
             else:
                 led_set_rgb(1,0,0)
-        # Poll once every 3 seconds as per
-        # https://www.rainer-gerhards.de/2021/01/sensirion-scd-30-different-co2-readings-depending-on-measurement-interval/
-        time.sleep(3)
+        # Poll once every 3 seconds
+         time.sleep(3)
     else:
         # Wait 0.2 seconds and then try again
         time.sleep(0.2)

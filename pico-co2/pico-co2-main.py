@@ -3,6 +3,7 @@
 # Rename this file to "main.py" and save to the Pico so that it runs automatically on power on.
 
 # original code from https://www.tindie.com/products/rubikcuber/pico-co2-sensor-bare-pcb-raspberry-pi/
+#                    https://gist.github.com/rubikcuber/61d2c6f0a04420fec4aca5a2160f2126
 
 import time
 import math

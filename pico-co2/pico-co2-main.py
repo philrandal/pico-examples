@@ -37,7 +37,7 @@ def secondsToString(s):
     return '{:02d}:{:02d}:{:02d}'.format(hour, minute, second)
 
 # Initialise the i2c interface
-i2c=I2C(0, sda=Pin(12), scl=Pin(13), freq=400000)
+i2c=I2C(0, sda=Pin(12), scl=Pin(13), freq=10000)
 
 # Initialise the SCD30 sensor
 scd30 = SCD30(i2c, 0x61)
@@ -73,6 +73,7 @@ while True:
     wdt.feed()
     # If the sensor has a value...
     if scd30.get_status_ready():
+        time.sleep(0.2)
         # Read the sensor data
         m = scd30.read_measurement()
         if m is not None:

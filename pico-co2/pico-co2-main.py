@@ -30,12 +30,13 @@ def led_set_rgb(r, g, b):
 # Set the RGB LED to white during initialisation
 led_set_rgb(1,1,1)
 
-# Utility function to convert a second count to hours:minutes:seconds
+# Utility function to convert a second count to days:hours:minutes:seconds
 def secondsToString(s):
-    hour = math.floor(s/3600)
-    minute = math.floor((s-(hour*3600))/60)
-    second = s - (60 * minute) - (3600 * hour);
-    return '{:3d}:{:02d}:{:02d}'.format(hour, minute, second)
+    day = math.floor(s/86400)
+    hour = math.floor(s/3600) % 24
+    minute = math.floor(s/60) % 60
+    second = s % 60
+    return '{:4d}:{:02d}:{:02d}:{:02d}'.format(day, hour, minute, second)
 
 # Initialise the i2c interface
 i2c=I2C(0, sda=Pin(12), scl=Pin(13), freq=10000)
@@ -84,7 +85,7 @@ while True:
             oled.text("Temp: " + ('%.2f' % m[1]) + " C", 0, 10)
             oled.text("Hum:  " + ('%.2f' % m[2]) + " %", 0, 20)
             runtime = (time.time() - start)
-            oled.text("uptime:" + secondsToString(runtime), 0, 50)
+            oled.text("Up: " + secondsToString(runtime), 0, 50)
             oled.show()
             # Set the RGB LED
             # Green: 0 - 599 ppm

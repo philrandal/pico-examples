@@ -1,5 +1,7 @@
-# Requires the following micropython libraries - install these to the Pi Pico with Thonny
-# errno, ffilib, os, scd30, signal, ssd1306, stat
+# Requires the following extra micropython libraries
+# Install these to the Pi Pico lib directory with Thonny:
+#     scd30, ssd1306
+
 # Rename this file to "main.py" and save to the Pico so that it runs automatically on power on.
 
 # original code from https://www.tindie.com/products/rubikcuber/pico-co2-sensor-bare-pcb-raspberry-pi/
@@ -59,7 +61,7 @@ oled.show()
 start = time.time()
 
 # Initialise the Watchdog timer timout (5 seconds)
-wdt = WDT(timeout=5000)
+wdt = WDT(timeout=50000)
 
 # A callback to handle the button presses
 def switch_pressed(p):
@@ -85,7 +87,7 @@ while True:
             oled.text("Temp: " + ('%.2f' % m[1]) + " C", 0, 10)
             oled.text("Hum:  " + ('%.2f' % m[2]) + " %", 0, 20)
             runtime = (time.time() - start)
-            oled.text("Up:" + secondsToString(runtime), 0, 50)
+            oled.text("Up: " + secondsToString(runtime), 0, 50)
             oled.show()
             # Set the RGB LED
             # Green: 0 - 599 ppm

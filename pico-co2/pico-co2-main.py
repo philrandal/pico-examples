@@ -61,7 +61,7 @@ oled.show()
 start = time.time()
 
 # Initialise the Watchdog timer timout (5 seconds)
-wdt = WDT(timeout=50000)
+wdt = WDT(timeout=5000)
 
 # A callback to handle the button presses
 def switch_pressed(p):
@@ -87,7 +87,7 @@ while True:
             oled.text("Temp: " + ('%.2f' % m[1]) + " C", 0, 10)
             oled.text("Hum:  " + ('%.2f' % m[2]) + " %", 0, 20)
             runtime = (time.time() - start)
-            oled.text("Up: " + secondsToString(runtime), 0, 50)
+            oled.text("Up:" + secondsToString(runtime), 0, 50)
             oled.show()
             # Set the RGB LED
             # Green: 0 - 599 ppm

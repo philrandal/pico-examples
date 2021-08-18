@@ -47,6 +47,7 @@ i2c=I2C(0, sda=Pin(12), scl=Pin(13), freq=10000)
 scd30 = SCD30(i2c, 0x61)
 # set measurement interval to 3 seconds as per
 # https://www.rainer-gerhards.de/2021/01/sensirion-scd-30-different-co2-readings-depending-on-measurement-interval/
+
 scd30.set_measurement_interval(3)
 scd30.start_continous_measurement()
 
@@ -60,16 +61,23 @@ oled.show()
 # Store the start time to use for deriving the uptime
 start = time.time()
 
-# Initialise the Watchdog timer timout (5 seconds)
-wdt = WDT(timeout=5000)
+# Initialise the Watchdog timer timout (120 seconds)
+# This gives us enough time to save modified code to the Pico without the watchdog firing
+wdt = WDT(timeout=120000)
 
 # A callback to handle the button presses
-def switch_pressed(p):
-    print('pin change', p)
+def switch1_pressed(p):
+    print('sw1 pin change', p)
+    scd30.set_forced_recalibration(410)
+
+# A callback to handle the button presses
+def switch2_pressed(p):
+    print('sw2 pin change', p)
+    scd30.set_automatic_recalibration(True)
 
 # Set up the two switches with callback
-sw1.irq(trigger=Pin.IRQ_RISING | Pin.IRQ_FALLING, handler=switch_pressed)
-sw2.irq(trigger=Pin.IRQ_RISING | Pin.IRQ_FALLING, handler=switch_pressed)
+sw1.irq(trigger=Pin.IRQ_RISING, handler=switch1_pressed)
+sw2.irq(trigger=Pin.IRQ_RISING, handler=switch2_pressed)
 
 # The main loop
 while True:
